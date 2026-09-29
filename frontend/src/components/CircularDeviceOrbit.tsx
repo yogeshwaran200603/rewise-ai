@@ -1,24 +1,176 @@
-import React, { useState } from "react";
-import { Wrench, RotateCw, TrendingUp, Recycle, Sparkles, ArrowRight, ShieldCheck, Leaf } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import {
+  Wrench,
+  RotateCw,
+  TrendingUp,
+  Recycle,
+  Sparkles,
+  ArrowRight,
+  ShieldCheck,
+  Leaf,
+  Smartphone,
+  ChevronDown,
+  Search,
+} from "lucide-react";
 import { Link } from "react-router-dom";
+import { RealisticDeviceRender } from "./RealisticDeviceRender";
+import { api } from "../services/api";
+import type { Device, DeviceModelItem } from "../types";
 
-interface CircularDeviceOrbitProps {
+export interface CircularDeviceOrbitProps {
+  device?: Device | any | null;
   deviceName?: string;
   selectedAction?: "REPAIR" | "REUSE" | "RESELL" | "RECYCLE" | null;
   onSelectAction?: (action: "REPAIR" | "REUSE" | "RESELL" | "RECYCLE") => void;
   showDetailsModal?: boolean;
+  isAnalyzing?: boolean;
+  detectedDamage?: string[] | string | null;
+  allowDeviceSwitcher?: boolean;
+  onDeviceChange?: (device: any) => void;
 }
 
+// Preset showcase models for instant verification
+const SHOWCASE_PRESETS = [
+  {
+    brand: "Motorola",
+    model: "Moto G34 5G",
+    releaseYear: 2024,
+    storage: "128GB",
+    battery: "5000 mAh",
+    is5G: true,
+  },
+  {
+    brand: "Apple",
+    model: "iPhone 15",
+    releaseYear: 2023,
+    storage: "128GB",
+    battery: "3349 mAh",
+    is5G: true,
+  },
+  {
+    brand: "Samsung",
+    model: "Galaxy S24",
+    releaseYear: 2024,
+    storage: "128GB",
+    battery: "4000 mAh",
+    is5G: true,
+  },
+  {
+    brand: "OnePlus",
+    model: "OnePlus 12",
+    releaseYear: 2024,
+    storage: "256GB",
+    battery: "5400 mAh",
+    is5G: true,
+  },
+];
+
 export const CircularDeviceOrbit: React.FC<CircularDeviceOrbitProps> = ({
-  deviceName = "Smartphone 2020–2026",
+  device = null,
+  deviceName,
   selectedAction = null,
   onSelectAction,
   showDetailsModal = true,
+  isAnalyzing = false,
+  detectedDamage = null,
+  allowDeviceSwitcher = true,
+  onDeviceChange,
 }) => {
   const [activeNode, setActiveNode] = useState<"REPAIR" | "REUSE" | "RESELL" | "RECYCLE" | null>(
     selectedAction || "REPAIR"
   );
   const [isOrbitPaused, setIsOrbitPaused] = useState(false);
+
+  // Active showcase device state
+  const [currentShowcaseIndex, setCurrentShowcaseIndex] = useState(0);
+  const [customDevice, setCustomDevice] = useState<Device | null>(null);
+
+  // Search in database modal
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<DeviceModelItem[]>([]);
+  const [searching, setSearching] = useState(false);
+
+  // Handle incoming props changes
+  useEffect(() => {
+    if (selectedAction) {
+      setActiveNode(selectedAction);
+    }
+  }, [selectedAction]);
+
+  // Determine current active device specs
+  const activePreset = SHOWCASE_PRESETS[currentShowcaseIndex];
+
+  let displayBrand = activePreset.brand;
+  let displayModel = activePreset.model;
+  let displayYear = activePreset.releaseYear;
+  let displayStorage = activePreset.storage;
+  let displayBattery = activePreset.battery;
+  let display5G = activePreset.is5G;
+  let effectiveDeviceDetail: Device | null = null;
+
+  if (device) {
+    displayBrand = device.brand || "Apple";
+    displayModel = device.model_name || device.model || "iPhone 15";
+    displayYear = device.release_year || device.releaseYear || 2024;
+    displayStorage = device.storage_options?.[0] || device.storageGb ? `${device.storageGb}GB` : "128GB";
+    displayBattery = device.battery_capacity || device.batteryCondition || "5000 mAh";
+    display5G = device.five_g ?? true;
+    effectiveDeviceDetail = device;
+  } else if (customDevice) {
+    displayBrand = customDevice.brand;
+    displayModel = customDevice.model_name || customDevice.model;
+    displayYear = customDevice.release_year || 2024;
+    displayStorage = customDevice.storage_options?.[0] || "128GB";
+    displayBattery = customDevice.battery_capacity || "5000 mAh";
+    display5G = customDevice.five_g ?? true;
+    effectiveDeviceDetail = customDevice;
+  } else if (deviceName) {
+    displayModel = deviceName;
+    if (deviceName.toLowerCase().includes("moto")) displayBrand = "Motorola";
+    else if (deviceName.toLowerCase().includes("iphone")) displayBrand = "Apple";
+    else if (deviceName.toLowerCase().includes("galaxy") || deviceName.toLowerCase().includes("samsung"))
+      displayBrand = "Samsung";
+  }
+
+  // Search devices from backend database
+  useEffect(() => {
+    if (!searchQuery.trim() || searchQuery.length < 2) {
+      setSearchResults([]);
+      return;
+    }
+    const timer = setTimeout(async () => {
+      setSearching(true);
+      try {
+        const results = await api.searchDevices(searchQuery);
+        setSearchResults(results.slice(0, 6));
+      } catch (err) {
+        console.warn("Failed to search devices:", err);
+      } finally {
+        setSearching(false);
+      }
+    }, 250);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  const handleSelectSearchDevice = async (item: DeviceModelItem) => {
+    try {
+      const full = await api.getDevice(item.id);
+      setCustomDevice(full);
+      setIsSearchOpen(false);
+      setSearchQuery("");
+      if (onDeviceChange) onDeviceChange(full);
+    } catch {
+      // Fallback to basic item
+      setCustomDevice({
+        id: item.id,
+        brand: item.brand,
+        model_name: item.model_name,
+        release_year: item.release_year || 2024,
+      } as Device);
+      setIsSearchOpen(false);
+    }
+  };
 
   const pillars = {
     REPAIR: {
@@ -31,7 +183,7 @@ export const CircularDeviceOrbit: React.FC<CircularDeviceOrbitProps> = ({
       cost: "₹1,500 - ₹5,000",
       benefit: "+18 to 36 Months Life Extension",
       footprint: "48.5 kg CO₂e Saved",
-      description: "Replace only the broken display or depleted battery with OEM parts.",
+      description: "Replace only the broken display, swollen battery, or failed port with genuine parts.",
       points: "+50 Pts",
       cta: "Explore Repair Hubs",
       link: "/service-centers",
@@ -46,7 +198,7 @@ export const CircularDeviceOrbit: React.FC<CircularDeviceOrbitProps> = ({
       cost: "₹0 (Zero Outlay)",
       benefit: "Dashcam, Webcam, Smart Display",
       footprint: "42.0 kg CO₂e Saved",
-      description: "Convert functional hardware locally without purchasing new single-use gadgets.",
+      description: "Convert functional hardware locally into dedicated tools without purchasing new single-use gadgets.",
       points: "+40 Pts",
       cta: "View Repurpose Guides",
       link: "/marketplace",
@@ -61,7 +213,7 @@ export const CircularDeviceOrbit: React.FC<CircularDeviceOrbitProps> = ({
       cost: "Positive Cash Recovery",
       benefit: "Cashify & Amazon Renewed Arbitrage",
       footprint: "39.0 kg CO₂e Saved",
-      description: "Unlock secondary market buyback value and extend circular circulation.",
+      description: "Unlock secondary market buyback value and extend circular circulation to another owner.",
       points: "+75 Pts",
       cta: "Check Trade-In Rates",
       link: "/marketplace",
@@ -93,50 +245,119 @@ export const CircularDeviceOrbit: React.FC<CircularDeviceOrbitProps> = ({
 
   return (
     <div
-      className="relative w-full max-w-4xl mx-auto py-8 sm:py-12 flex flex-col items-center select-none"
+      className="relative w-full max-w-5xl mx-auto py-4 sm:py-8 flex flex-col items-center select-none"
       onMouseEnter={() => setIsOrbitPaused(true)}
       onMouseLeave={() => setIsOrbitPaused(false)}
     >
-      {/* Background Floating Ecosystem Particles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-10 left-1/4 w-1.5 h-1.5 rounded-full bg-emerald-400/40 animate-pulse-glow" />
-        <div className="absolute top-1/3 right-1/4 w-2 h-2 rounded-full bg-teal-400/30 animate-pulse-glow" style={{ animationDelay: "1s" }} />
-        <div className="absolute bottom-16 left-1/3 w-1 h-1 rounded-full bg-emerald-300/50 animate-pulse-glow" style={{ animationDelay: "2s" }} />
-        <div className="absolute bottom-20 right-1/3 w-2 h-2 rounded-full bg-amber-400/20 animate-pulse-glow" style={{ animationDelay: "3s" }} />
-      </div>
+      {/* Dynamic Device Selector Pills (Allowed on Hero / Demonstrator) */}
+      {allowDeviceSwitcher && !device && (
+        <div className="mb-6 sm:mb-8 flex flex-wrap items-center justify-center gap-2 relative z-30">
+          <span className="text-[11px] font-mono text-[#93a299] uppercase tracking-wider mr-1 hidden sm:inline">
+            Showcase Device:
+          </span>
+          {SHOWCASE_PRESETS.map((preset, idx) => {
+            const isSelected = !customDevice && currentShowcaseIndex === idx;
+            return (
+              <button
+                key={preset.model}
+                type="button"
+                onClick={() => {
+                  setCustomDevice(null);
+                  setCurrentShowcaseIndex(idx);
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono transition-all flex items-center gap-1.5 ${
+                  isSelected
+                    ? "bg-emerald-500 text-slate-950 font-bold shadow-lg shadow-emerald-500/20 scale-105"
+                    : "glass-eco text-[#93a299] hover:text-[#f4f6f4] hover:bg-white/5 border-white/5"
+                }`}
+              >
+                <span>{preset.model}</span>
+              </button>
+            );
+          })}
+
+          {/* Search Any from 342+ Models */}
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-mono transition-all flex items-center gap-1.5 ${
+                customDevice
+                  ? "bg-emerald-500 text-slate-950 font-bold shadow-lg shadow-emerald-500/20"
+                  : "glass-eco text-[#93a299] hover:text-[#f4f6f4] border-white/10"
+              }`}
+            >
+              <Search className="w-3 h-3" />
+              <span>{customDevice ? customDevice.model_name : "Search 342+ Models"}</span>
+              <ChevronDown className="w-3 h-3" />
+            </button>
+
+            {/* Quick Search Dropdown */}
+            {isSearchOpen && (
+              <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-72 rounded-2xl glass-eco-glow p-3 z-50 shadow-2xl border border-emerald-500/30 text-left animate-in fade-in zoom-in-95">
+                <input
+                  type="text"
+                  placeholder="Search brand or model..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  autoFocus
+                  className="w-full px-3 py-1.5 rounded-xl bg-black/60 border border-white/10 text-xs text-[#f4f6f4] placeholder-[#93a299] focus:outline-none focus:border-emerald-500 font-mono mb-2"
+                />
+                {searching && <div className="text-[10px] font-mono text-[#93a299] py-2 text-center">Searching...</div>}
+                <div className="max-h-48 overflow-y-auto space-y-1">
+                  {searchResults.map((r) => (
+                    <button
+                      key={r.id}
+                      type="button"
+                      onClick={() => handleSelectSearchDevice(r)}
+                      className="w-full px-2.5 py-1.5 rounded-lg text-left text-xs font-mono text-[#93a299] hover:text-[#f4f6f4] hover:bg-emerald-500/10 flex items-center justify-between"
+                    >
+                      <span className="truncate">{r.brand} {r.model_name}</span>
+                      <span className="text-[9px] text-emerald-400 shrink-0">{r.release_year}</span>
+                    </button>
+                  ))}
+                  {!searching && searchQuery.length >= 2 && searchResults.length === 0 && (
+                    <div className="text-[10px] font-mono text-[#93a299] py-2 text-center">No devices found</div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Main Orbit Stage */}
-      <div className="relative w-[340px] h-[340px] sm:w-[440px] sm:h-[440px] flex items-center justify-center">
+      <div className="relative w-[340px] h-[340px] sm:w-[500px] sm:h-[500px] flex items-center justify-center">
         {/* Outer Aura Ring */}
         <div className="absolute inset-0 rounded-full border border-emerald-500/10 bg-radial from-emerald-500/5 via-transparent to-transparent pointer-events-none" />
 
         {/* Concentric SVG Orbit Rings with Subtle Dashed Geometry */}
         <svg
           className="absolute inset-0 w-full h-full pointer-events-none"
-          viewBox="0 0 440 440"
+          viewBox="0 0 500 500"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           {/* Main Orbit Track */}
           <circle
-            cx="220"
-            cy="220"
-            r="170"
+            cx="250"
+            cy="250"
+            r="195"
             stroke="rgba(16, 185, 129, 0.22)"
             strokeWidth="1.5"
             strokeDasharray="4 8"
           />
           {/* Inner Accent Ring */}
           <circle
-            cx="220"
-            cy="220"
-            r="120"
+            cx="250"
+            cy="250"
+            r="135"
             stroke="rgba(255, 255, 255, 0.05)"
             strokeWidth="1"
           />
         </svg>
 
-        {/* Orbiting Container - Spins unless hovered */}
+        {/* Orbiting Container - 4 Circular Pathways */}
         <div
           className={`absolute inset-0 flex items-center justify-center transition-all ${
             isOrbitPaused ? "" : "animate-orbit"
@@ -145,11 +366,12 @@ export const CircularDeviceOrbit: React.FC<CircularDeviceOrbitProps> = ({
         >
           {/* Orbit Node 1: REPAIR (Top: 0°) */}
           <div
-            className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2"
+            className="absolute top-2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-20"
             style={{ transform: isOrbitPaused ? undefined : "rotate(0deg)" }}
           >
             <div className={isOrbitPaused ? "" : "animate-orbit-counter"}>
               <button
+                type="button"
                 onClick={() => handleNodeClick("REPAIR")}
                 className={`group relative p-3 sm:p-3.5 rounded-2xl glass-eco border transition-all duration-300 flex items-center gap-2 shadow-xl ${
                   activeNode === "REPAIR"
@@ -169,9 +391,10 @@ export const CircularDeviceOrbit: React.FC<CircularDeviceOrbitProps> = ({
           </div>
 
           {/* Orbit Node 2: RESELL (Right: 90°) */}
-          <div className="absolute right-0 translate-x-1/2 top-1/2 -translate-y-1/2">
+          <div className="absolute right-2 translate-x-1/2 top-1/2 -translate-y-1/2 z-20">
             <div className={isOrbitPaused ? "" : "animate-orbit-counter"}>
               <button
+                type="button"
                 onClick={() => handleNodeClick("RESELL")}
                 className={`group relative p-3 sm:p-3.5 rounded-2xl glass-eco border transition-all duration-300 flex items-center gap-2 shadow-xl ${
                   activeNode === "RESELL"
@@ -191,9 +414,10 @@ export const CircularDeviceOrbit: React.FC<CircularDeviceOrbitProps> = ({
           </div>
 
           {/* Orbit Node 3: RECYCLE (Bottom: 180°) */}
-          <div className="absolute bottom-0 translate-y-1/2 left-1/2 -translate-x-1/2">
+          <div className="absolute bottom-2 translate-y-1/2 left-1/2 -translate-x-1/2 z-20">
             <div className={isOrbitPaused ? "" : "animate-orbit-counter"}>
               <button
+                type="button"
                 onClick={() => handleNodeClick("RECYCLE")}
                 className={`group relative p-3 sm:p-3.5 rounded-2xl glass-eco border transition-all duration-300 flex items-center gap-2 shadow-xl ${
                   activeNode === "RECYCLE"
@@ -213,9 +437,10 @@ export const CircularDeviceOrbit: React.FC<CircularDeviceOrbitProps> = ({
           </div>
 
           {/* Orbit Node 4: REUSE (Left: 270°) */}
-          <div className="absolute left-0 -translate-x-1/2 top-1/2 -translate-y-1/2">
+          <div className="absolute left-2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-20">
             <div className={isOrbitPaused ? "" : "animate-orbit-counter"}>
               <button
+                type="button"
                 onClick={() => handleNodeClick("REUSE")}
                 className={`group relative p-3 sm:p-3.5 rounded-2xl glass-eco border transition-all duration-300 flex items-center gap-2 shadow-xl ${
                   activeNode === "REUSE"
@@ -235,47 +460,23 @@ export const CircularDeviceOrbit: React.FC<CircularDeviceOrbitProps> = ({
           </div>
         </div>
 
-        {/* Center Floating Premium Smartphone */}
+        {/* ========================================================
+            CENTER HERO: REALISTIC 3D PRODUCT DEVICE REPRESENTATION
+            ======================================================== */}
         <div className="relative z-10 animate-float flex flex-col items-center">
-          {/* Smartphone Hardware Frame */}
-          <div className="w-28 sm:w-36 h-52 sm:h-64 rounded-[2.2rem] bg-gradient-to-b from-slate-800 via-slate-900 to-black p-2 device-frame-shadow border border-white/20 relative overflow-hidden flex flex-col justify-between">
-            {/* Top Bezel & Speaker */}
-            <div className="flex items-center justify-center gap-1.5 pt-1">
-              <div className="w-2 h-2 rounded-full bg-slate-950 border border-slate-700" />
-              <div className="w-8 h-1 rounded-full bg-slate-800" />
-            </div>
-
-            {/* Glass Screen with ReWise Core Glow */}
-            <div className="relative flex-1 rounded-[1.7rem] bg-[#070b09] border border-emerald-500/20 overflow-hidden flex flex-col items-center justify-center p-3 text-center my-1.5 shadow-inner">
-              {/* Screen Sheen Reflection */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none" />
-
-              {/* Glowing Brand Core */}
-              <div className="relative w-12 h-12 rounded-2xl bg-slate-950/80 border border-emerald-500/40 flex items-center justify-center p-1.5 mb-2 shadow-lg shadow-emerald-500/30">
-                <img src="/logo-icon.png" alt="ReWise Logo" className="w-full h-full object-contain" />
-              </div>
-
-              <span className="text-[9px] font-mono uppercase tracking-widest text-emerald-400 font-bold block">
-                ReWise AI
-              </span>
-              <span className="text-[10px] font-mono text-[#93a299] line-clamp-1 mt-0.5 max-w-[90px]">
-                {activeNode || "Evaluation"}
-              </span>
-
-              {/* Live Eco Status Pill */}
-              <div className="mt-2 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[8px] font-mono text-emerald-300">
-                Circular Ready
-              </div>
-            </div>
-
-            {/* Bottom Home Indicator */}
-            <div className="flex justify-center pb-1">
-              <div className="w-10 h-1 rounded-full bg-slate-700/80" />
-            </div>
-          </div>
-
-          {/* Under-device spatial shadow */}
-          <div className="w-24 sm:w-32 h-3 rounded-full bg-emerald-500/20 blur-md mt-2" />
+          <RealisticDeviceRender
+            brand={displayBrand}
+            modelName={displayModel}
+            deviceDetail={effectiveDeviceDetail}
+            releaseYear={displayYear}
+            storageGb={displayStorage}
+            batteryCapacity={displayBattery}
+            is5G={display5G}
+            detectedDamage={detectedDamage}
+            isAnalyzing={isAnalyzing}
+            orbitReaction={activeNode}
+            autoRotate={true}
+          />
         </div>
       </div>
 

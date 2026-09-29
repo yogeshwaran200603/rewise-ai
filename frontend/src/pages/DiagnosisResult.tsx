@@ -37,6 +37,7 @@ import { DeviceProfile } from "../components/DeviceProfile";
 import { InteractiveMap } from "../components/InteractiveMap";
 import { ReWiseAssistant } from "../components/ReWiseAssistant";
 import { RewardBadge } from "../components/RewardBadge";
+import { CircularDeviceOrbit } from "../components/CircularDeviceOrbit";
 
 export const DiagnosisResult: React.FC = () => {
   const location = useLocation();
@@ -378,6 +379,14 @@ export const DiagnosisResult: React.FC = () => {
       {/* TAB 2: NEXT LIFE EXPERIENCE (WHAT SHOULD HAPPEN TO YOUR DEVICE?) */}
       {activeTab === "pathways" && (
         <div className="space-y-8 animate-in fade-in duration-200">
+          <CircularDeviceOrbit
+            deviceName={ai_diagnosis.device}
+            selectedAction={decision.recommended_action as any}
+            onSelectAction={handleSelectAction}
+            detectedDamage={[ai_diagnosis.problem_category, ...(ai_diagnosis.observed_symptoms || [])]}
+            showDetailsModal={false}
+            allowDeviceSwitcher={false}
+          />
           <NextLifePath
             device={ai_diagnosis.device}
             decision={decision}

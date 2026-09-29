@@ -144,6 +144,83 @@
   animation: scan-line 3s linear infinite;
 }
 
+/* 3D Product Turntable Showcase */
+@keyframes device-turntable {
+  0% {
+    transform: rotateY(0deg) rotateX(4deg) translateY(0px);
+  }
+  20% {
+    transform: rotateY(40deg) rotateX(2deg) translateY(-8px);
+  }
+  45% {
+    transform: rotateY(140deg) rotateX(-2deg) translateY(-3px);
+  }
+  50% {
+    transform: rotateY(180deg) rotateX(-4deg) translateY(0px);
+  }
+  70% {
+    transform: rotateY(225deg) rotateX(-2deg) translateY(-8px);
+  }
+  90% {
+    transform: rotateY(325deg) rotateX(2deg) translateY(-3px);
+  }
+  100% {
+    transform: rotateY(360deg) rotateX(4deg) translateY(0px);
+  }
+}
+
+@keyframes laser-sweep {
+  0% {
+    top: 0%;
+    opacity: 0.9;
+  }
+  50% {
+    top: 96%;
+    opacity: 1;
+  }
+  100% {
+    top: 0%;
+    opacity: 0.9;
+  }
+}
+
+@keyframes green-line-flicker {
+  0%, 100% {
+    opacity: 0.85;
+    box-shadow: 0 0 8px #10b981, 0 0 16px #34d399;
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 12px #34d399, 0 0 24px #10b981;
+  }
+}
+
+.animate-device-3d {
+  animation: device-turntable 18s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  transform-style: preserve-3d;
+}
+
+.animate-laser {
+  animation: laser-sweep 2.8s ease-in-out infinite;
+}
+
+.animate-oled-line {
+  animation: green-line-flicker 1.5s ease-in-out infinite;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.perspective-1200 {
+  perspective: 1200px;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
 /* Hardware Device Silhouette & Realistic Glass Glow */
 .device-frame-shadow {
   box-shadow: 
