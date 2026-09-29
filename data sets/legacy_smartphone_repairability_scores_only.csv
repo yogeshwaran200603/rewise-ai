@@ -1,0 +1,127 @@
+model,year,repairability_score
+Fairphone 4,2021,10
+Google Pixel 6,2021,6
+Google Pixel 6 Pro,2021,5
+iPhone 13 Pro,2021,6
+Google Pixel 5a,2021,6
+Mi 11,2021,4
+Huawei Mate 40 Pro,2020,4
+iPhone 12 Pro Max,2020,6
+iPhone 12 Mini,2020,6
+iPhone 12 Pro,2020,6
+Google Pixel 5,2020,6
+Microsoft Surface Duo,2020,2
+Google Pixel 4a,2020,6
+Samsung Galaxy Note 20 Ultra,2020,3
+iPhone SE 2020,2020,6
+Samsung Galaxy A51,2020,4
+Samsung Galaxy S20 Ultra,2020,3
+Samsung Galaxy Z Flip,2020,2
+Motorola razr,2020,1
+Google Pixel 4 XL,2019,4
+iPhone 11,2019,6
+iPhone 11 Pro Max,2019,6
+Fairphone 3,2019,10
+Samsung Galaxy Note10 Plus 5G,2019,3
+Shift 6m,2019,9
+Huawei Mate 20 X 5G,2019,4
+Google Pixel 3a,2019,6
+Google Pixel 3a XL,2019,6
+Samsung Galaxy Fold,2019,2
+Samsung Galaxy S10,2019,3
+Huawei Mate 20 Pro,2018,4
+iPhone XR,2018,6
+Google Pixel 3 XL,2018,4
+Google Pixel 3,2018,4
+iPhone XS,2018,6
+Nokia 8110 4G,2018,8
+LG G7 Thin Q,2018,4
+OnePlus 6,2018,5
+Huawei P20 Pro,2018,4
+Samsung Galaxy S9+,2018,4
+Samsung Galaxy S9,2018,4
+iPhone X,2017,6
+Google Pixel 2 XL,2017,6
+Google Pixel 2,2017,6
+Huawei Mate 10 Pro,2017,4
+iPhone 8,2017,6
+iPhone 8 Plus,2017,6
+Samsung Galaxy Note8,2017,4
+Essential Phone,2017,1
+Samsung Galaxy Note Fan Edition,2017,4
+OnePlus 5,2017,7
+Samsung Galaxy S8+,2017,4
+Samsung Galaxy S8,2017,4
+LG G6,2017,5
+Huawei Mate 9,2016,5
+Google Pixel XL,2016,7
+Google Pixel,2016,7
+Apple iPhone 7,2016,7
+Apple iPhone 7 Plus,2016,7
+Sony Xperia X Compact,2016,6
+Moto Z,2016,7
+Samsung Galaxy Note7,2016,4
+Asus Zenfone 3 Max,2016,6
+Meizu MX6,2016,7
+LG G5,2016,8
+Vivo X7 Plus,2016,7
+Vivo X7,2016,6
+Huawei P9,2016,7
+Xiaomi Mi 5,2016,6
+Apple iPhone SE,2016,6
+Oppo R9m,2016,7
+Samsung Galaxy S7,2016,3
+Samsung Galaxy S7 Edge,2016,3
+Lenovo K5 Note,2015,6
+Fairphone 2,2015,10
+Huawei Mate 8,2015,6
+Xiaomi Redmi Note 3,2015,8
+Wiko Pulp 4G Phone,2015,7
+Apple iPhone 6s,2015,7
+Apple iPhone 6s Plus,2015,7
+Nexus 5X,2015,7
+Nexus 6P,2015,2
+OnePlus 2,2015,7
+Shift 5.1,2015,6
+LG G4,2015,8
+Samsung Galaxy S6,2015,4
+Samsung Galaxy S6 Edge,2015,3
+HTC One M9,2015,2
+Nexus 6,2014,7
+iPhone 6 Plus,2014,7
+iPhone 6,2014,7
+Samsung Galaxy Alpha,2014,5
+Amazon Fire Phone,2014,3
+Samsung Galaxy S5 Mini,2014,5
+OnePlus One,2014,5
+Samsung Galaxy S5,2014,5
+HTC One M8,2014,2
+Fairphone 1,2013,7
+Nexus 5,2013,8
+iPhone 5c,2013,6
+iPhone 5s,2013,6
+Motorola Moto X 1st Generation,2013,7
+Samsung Galaxy S4,2013,8
+HTC One,2013,1
+BlackBerry Z10,2013,8
+Nexus 4,2012,7
+Samsung Galaxy Note II,2012,8
+iPhone 5,2012,7
+Samsung Galaxy S III,2012,8
+Motorola Droid 4,2012,4
+Samsung Galaxy Nexus,2011,7
+Motorola Droid RAZR,2011,4
+iPhone 4S,2011,6
+Samsung Galaxy Note,2011,8
+Motorola Droid Bionic,2011,9
+Motorola Droid 3,2011,6
+Samsung Galaxy S II,2011,8
+Samsung Galaxy S 4G,2011,6
+iPhone 4 Verizon,2011,6
+Motorola Atrix 4G,2011,9
+Nexus S,2010,7
+HTC Surround,2010,5
+Nokia N8,2010,8
+iPhone 3GS,2009,7
+iPhone 3G,2008,7
+iPhone 1st Generation,2007,2

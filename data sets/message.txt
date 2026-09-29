@@ -1,0 +1,66 @@
+Here are the direct links, GitHub repositories, and search handles for each dataset required for the project, as outlined in the research document:
+
+### **1. Device Specification & Repairability Data**
+*   **DS-01 | iFixit Repairability Scores:**
+    *   **Direct Link:** [ifixit.com/repairability/smartphone-repairability-scores](https://www.ifixit.com/repairability/smartphone-repairability-scores)
+    *   **GitHub (Community Daily Pull):** [`NoJokeFNA/ifixit-repair-score-site`](https://github.com/NoJokeFNA/ifixit-repair-score-site)
+*   **DS-02 | French Indice de Réparabilité (Scraped Open Data):**
+    *   **GitHub Repository:** [`heaversm/electronics-repairability-scores`](https://github.com/heaversm/electronics-repairability-scores) (Look for `repairability-final.csv`)
+*   **DS-03 | India Right to Repair Portal:**
+    *   **Direct Link:** [righttorepairindia.gov.in](https://righttorepairindia.gov.in)
+*   **DS-04 | Smartphone Specifications & Prices (India):**
+    *   **Kaggle Dataset:** Search Kaggle for [`shrutiambekar/smartphone-specifications-and-prices-in-india`](https://www.kaggle.com/datasets/shrutiambekar/smartphone-specifications-and-prices-in-india)
+*   **DS-05 | MyFixit Repair Manuals (for NLP pre-training):**
+    *   **GitHub Repository:** [`rub-ksv/MyFixit-Dataset`](https://github.com/rub-ksv/MyFixit-Dataset)
+
+---
+
+### **2. Battery Degradation & Device Health Data (RUL Predictor)**
+*   **DS-06 | NASA Prognostics Center of Excellence Battery Dataset:**
+    *   **Direct Link:** [nasa.gov/intelligent-systems-division](https://www.nasa.gov/intelligent-systems-division) (under the Prognostics Data Repository)
+*   **DS-07 | Oxford Battery Degradation Dataset:**
+    *   **Academic Repository:** University of Oxford Bodleian Library Research Data (Search using DOI: [10.5287/bodleian:KO2kdmYGg](https://doi.org/10.5287/bodleian:KO2kdmYGg))
+*   **DS-08 | Kaggle Smartphone Battery Health Prediction Dataset:**
+    *   **Kaggle Dataset:** Search Kaggle for [`vishardmehta/smartphone-battery-health-prediction-dataset`](https://www.kaggle.com/datasets/vishardmehta/smartphone-battery-health-prediction-dataset)
+*   **DS-09 | CALCE Battery Research Group Dataset:**
+    *   **Direct Portal:** University of Maryland (CALCE) public database (Registration required at their portal)
+
+---
+
+### **3. Resale & Trade-in Pricing**
+*   **DS-10 | Used Phones & Tablets Pricing Dataset:**
+    *   **Kaggle Dataset:** Search Kaggle for [`ahsan81/used-handheld-device-data`](https://www.kaggle.com/datasets/ahsan81/used-handheld-device-data)
+*   **DS-11 | Cashify & OLX Live Pricing:**
+    *   **Scraping targets:** [cashify.in](https://www.cashify.in) (HTML parsing of instant-quote tool) and [olx.in](https://www.olx.in) (local second-hand listings)
+
+---
+
+### **4. India Repair Cost Data**
+*   **DS-12 | Published Indian Repair Service Price Schedules (Curation Sources):**
+    *   **Independent Networks:** [gofix.co.in](https://gofix.co.in) and [buzzmeeh.com](https://buzzmeeh.com)
+    *   **Official OEM Schedules:** Samsung India Support portal ([samsung.com/in/support](https://www.samsung.com/in/support)) and Apple India AASPs ([support.apple.com/in](https://support.apple.com/in))
+
+---
+
+### **5. Carbon Footprint & Environmental Impact**
+*   **DS-14 | OEM Product Carbon Footprint (PCF) Reports:**
+    *   **Apple environment portal:** [apple.com/environment](https://www.apple.com/environment)
+    *   **HP env. specifications:** [hp.com](https://hp.com)
+    *   **Dell & Lenovo:** Product environmental specifications listed on their main hardware support pages
+*   **DS-15 | Academic LCA Reference Values (Academic Papers to Search):**
+    *   *Cordilla, M. et al. (2021)* — Search Google Scholar
+    *   *Junkyard Computing (arXiv:2110.06870)* — Search arXiv repository
+*   **DS-16 | Ecoinvent 3.x (Background LCA Data):**
+    *   **Direct Portal (Paid/Academic License):** [ecoinvent.org](https://ecoinvent.org)
+
+---
+
+### **6. Government & Policy Reference Data**
+*   **DS-17 | CPCB Annual E-Waste Reports:**
+    *   **Direct Link:** [cpcb.nic.in](https://cpcb.nic.in) (Central Pollution Control Board portal)
+*   **DS-18 | EPR-Registered Recycler Database:**
+    *   **Direct Link:** Central Pollution Control Board (CPCB) registered e-waste recyclers database on [cpcb.nic.in](https://cpcb.nic.in)
+
+---
+
+📊 I can write a Python script in your workspace that automatically sets up your project directory and downloads the immediately available Kaggle and GitHub datasets so you have them ready to use.

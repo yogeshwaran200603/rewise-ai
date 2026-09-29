@@ -1,0 +1,196 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+:root {
+  --bg-deep: #080b0a;
+  --bg-surface: #0d1210;
+  --bg-card: #121815;
+  --bg-card-hover: #17211c;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-emerald: rgba(16, 185, 129, 0.22);
+  --emerald-primary: #10b981;
+  --emerald-dark: #059669;
+  --mint-soft: #6ee7b7;
+  --text-warm: #f4f6f4;
+  --text-muted: #93a299;
+  --text-dim: #5c6e64;
+  --amber-subtle: #f59e0b;
+}
+
+@layer base {
+  body {
+    background-color: var(--bg-deep);
+    color: var(--text-warm);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+    overflow-x: hidden;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Glassmorphism & Eco-Tech Panels */
+.glass-eco {
+  background: rgba(13, 18, 16, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.glass-eco-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-eco-hover:hover {
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.5), 0 0 24px -4px rgba(16, 185, 129, 0.12);
+}
+
+.glass-eco-glow {
+  background: rgba(13, 18, 16, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.15), 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+}
+
+/* Gradients */
+.text-gradient-emerald {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-warm {
+  background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 70%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animations */
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-counter {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(0.5deg);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes scan-line {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(400%);
+  }
+}
+
+@keyframes shimmer-move {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-orbit {
+  animation: orbit-spin 38s linear infinite;
+}
+
+.animate-orbit-counter {
+  animation: orbit-counter 38s linear infinite;
+}
+
+.animate-float {
+  animation: float-gentle 7s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-subtle 4s ease-in-out infinite;
+}
+
+.animate-scan {
+  animation: scan-line 3s linear infinite;
+}
+
+/* Hardware Device Silhouette & Realistic Glass Glow */
+.device-frame-shadow {
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 25px 60px -15px rgba(0, 0, 0, 0.8),
+    0 0 45px -5px rgba(16, 185, 129, 0.25);
+}
+
+/* Receipt Perforated Edge */
+.receipt-perforated {
+  background-image: radial-gradient(circle at 10px -2px, transparent 8px, #121815 9px);
+  background-size: 20px 10px;
+  background-repeat: repeat-x;
+}
+
+/* Accessibility: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Leaflet Dark Custom Theme */
+.leaflet-popup-content-wrapper {
+  background: #0d1210 !important;
+  color: #f4f6f4 !important;
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75) !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: 1.4 !important;
+}
+
+.leaflet-popup-tip {
+  background: #0d1210 !important;
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+}
+
+.leaflet-container {
+  background: #080b0a !important;
+  font-family: inherit !important;
+}

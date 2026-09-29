@@ -1,0 +1,30 @@
+{
+  "device_specs": {
+    "actor_id": "",
+    "description": "Scrapes public smartphone hardware specifications (GSM Arena, 91Mobiles, manufacturer specs)",
+    "target_period": "2020-2026",
+    "required_fields": ["brand", "model", "release_year", "battery_capacity", "india_launch_price", "source_url"]
+  },
+  "repair_prices": {
+    "actor_id": "",
+    "description": "Scrapes publicly listed OEM and certified repair price cards (screen, battery, motherboard, charging)",
+    "problem_categories": ["display", "battery", "charging_port", "camera", "speaker", "microphone", "motherboard", "water_damage", "software", "network", "button", "fingerprint", "other"],
+    "required_fields": ["brand", "model", "problem_category", "part_price", "currency", "source_url"]
+  },
+  "resale_prices": {
+    "actor_id": "",
+    "description": "Scrapes public secondary marketplace estimates (Amazon Renewed, Flipkart Re-New, Cashify, OLX)",
+    "conditions": ["excellent", "good", "fair", "damaged", "non_functional"],
+    "required_fields": ["brand", "model", "condition", "estimated_price_low", "estimated_price_high", "currency", "marketplace", "source_url"]
+  },
+  "service_centers": {
+    "actor_id": "",
+    "description": "Scrapes verified manufacturer authorized walk-in and doorstep service center listings",
+    "required_fields": ["name", "brand", "address", "city", "state", "latitude", "longitude", "source_url"]
+  },
+  "recycling_centers": {
+    "actor_id": "",
+    "description": "Scrapes registered CPCB and State Pollution Control Board e-waste recycling facilities",
+    "required_fields": ["name", "organization", "address", "city", "state", "accepted_device_types", "source_url"]
+  }
+}

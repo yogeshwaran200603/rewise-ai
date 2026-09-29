@@ -1,0 +1,49 @@
+﻿model,year,repairability_score
+Framework 13,2021,10
+HP EliteBook 840 Aero G8,2021,9
+HP EliteBook 840 G7,2020,9
+HP EliteBook x360 830 G7,2020,9
+HP EliteBook 850 G5,2020,10
+HP ProBook 440 G7,2020,9
+HP Elitebook x360 1040 G5,2020,6
+MacBook Pro 16″ 2019,2019,1
+Microsoft Surface Laptop 3 15″,2019,5
+MacBook Pro 13″ Two Thunderbolt Ports 2019,2019,2
+HP EliteBook x360 830 G5,2019,9
+HP EliteBook 840 G6,2019,10
+HP EliteBook x360 830 G6,2019,9
+MacBook Pro 15″ Touch Bar 2019,2019,1
+HP EliteBook 1050 G1,2018,9
+MacBook Air 13″ Retina Display Late 2018,2018,3
+MacBook Pro 15″ Touch Bar 2018,2018,1
+MacBook Pro 13″ Touch Bar 2018,2018,1
+HP EliteBook 840 G3,2017,10
+Dell Latitude E5270,2017,10
+LG Gram 15″,2017,9
+Samsung Series 9 15″,2017,9
+Acer Predator 17.3″,2017,8
+Dell XPS 13,2017,7
+MacBook Pro 13″ Touch Bar 2017,2017,1
+Retina MacBook 2017,2017,1
+MacBook Pro 15″ Touch Bar Late 2016,2016,1
+MacBook Pro 13″ Touch Bar Late 2016,2016,1
+MacBook Pro 13″ Function Keys Late 2016,2016,2
+Retina MacBook 2016,2016,1
+Asus Chromebook C202,2016,9
+Retina MacBook 2015,2015,1
+MacBook Pro 13″ Retina Display Early 2015,2015,1
+MacBook Air 13″ Early 2015,2015,4
+MacBook Air 11″ Early 2015,2015,4
+MacBook Pro 13″ Retina Display Late 2013,2013,1
+MacBook Pro 15″ Retina Display Late 2013,2013,1
+MacBook Air 11″ Mid 2013,2013,4
+MacBook Air 13″ Mid 2013,2013,4
+Dell Inspiron Duo,2013,7
+MacBook Pro 13″ Retina Display Late 2012,2012,1
+Asus Zenbook UX32VD,2012,8
+MacBook Pro 15″ Unibody Mid 2012,2012,7
+MacBook Pro 15″ Retina Display Mid 2012,2012,1
+MacBook Air 13″ Mid 2012,2012,4
+MacBook Air 13″ Mid 2011,2011,4
+MacBook Pro 15″ Unibody Early 2011,2011,7
+MacBook Air 13″ Late 2010,2010,4
