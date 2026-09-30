@@ -1,258 +1,50 @@
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
 
-:root {
-  --bg-deep: #080b0a;
-  --bg-surface: #0d1210;
-  --bg-card: #121815;
-  --bg-card-hover: #17211c;
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-emerald: rgba(16, 185, 129, 0.22);
-  --emerald-primary: #10b981;
-  --emerald-dark: #059669;
-  --mint-soft: #6ee7b7;
-  --text-warm: #f4f6f4;
-  --text-muted: #93a299;
-  --text-dim: #5c6e64;
-  --amber-subtle: #f59e0b;
-}
-
 @layer base {
   body {
-    background-color: var(--bg-deep);
-    color: var(--text-warm);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+    background-color: #070a0f;
+    color: #f1f5f9;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     overflow-x: hidden;
-    letter-spacing: -0.01em;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-/* Glassmorphism & Eco-Tech Panels */
-.glass-eco {
-  background: rgba(13, 18, 16, 0.72);
+/* Custom Glassmorphism & Accent Gradients */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-glow {
+  background: rgba(15, 23, 42, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.15);
 }
 
-.glass-eco-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-eco-hover:hover {
-  border-color: rgba(16, 185, 129, 0.35);
-  box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.5), 0 0 24px -4px rgba(16, 185, 129, 0.12);
-}
-
-.glass-eco-glow {
-  background: rgba(13, 18, 16, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(16, 185, 129, 0.28);
-  box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.15), 0 20px 40px -15px rgba(0, 0, 0, 0.6);
-}
-
-/* Gradients */
 .text-gradient-emerald {
-  background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%);
+  background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.text-gradient-warm {
-  background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 70%, #94a3b8 100%);
+.text-gradient-white {
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Animations */
-@keyframes orbit-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes orbit-counter {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(-360deg);
-  }
-}
-
-@keyframes float-gentle {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(0.5deg);
-  }
-}
-
-@keyframes pulse-subtle {
-  0%, 100% {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.6;
-    transform: scale(1.03);
-  }
-}
-
-@keyframes scan-line {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(400%);
-  }
-}
-
-@keyframes shimmer-move {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.animate-orbit {
-  animation: orbit-spin 38s linear infinite;
-}
-
-.animate-orbit-counter {
-  animation: orbit-counter 38s linear infinite;
-}
-
-.animate-float {
-  animation: float-gentle 7s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulse-subtle 4s ease-in-out infinite;
-}
-
-.animate-scan {
-  animation: scan-line 3s linear infinite;
-}
-
-/* 3D Product Turntable Showcase */
-@keyframes device-turntable {
-  0% {
-    transform: rotateY(0deg) rotateX(4deg) translateY(0px);
-  }
-  20% {
-    transform: rotateY(40deg) rotateX(2deg) translateY(-8px);
-  }
-  45% {
-    transform: rotateY(140deg) rotateX(-2deg) translateY(-3px);
-  }
-  50% {
-    transform: rotateY(180deg) rotateX(-4deg) translateY(0px);
-  }
-  70% {
-    transform: rotateY(225deg) rotateX(-2deg) translateY(-8px);
-  }
-  90% {
-    transform: rotateY(325deg) rotateX(2deg) translateY(-3px);
-  }
-  100% {
-    transform: rotateY(360deg) rotateX(4deg) translateY(0px);
-  }
-}
-
-@keyframes laser-sweep {
-  0% {
-    top: 0%;
-    opacity: 0.9;
-  }
-  50% {
-    top: 96%;
-    opacity: 1;
-  }
-  100% {
-    top: 0%;
-    opacity: 0.9;
-  }
-}
-
-@keyframes green-line-flicker {
-  0%, 100% {
-    opacity: 0.85;
-    box-shadow: 0 0 8px #10b981, 0 0 16px #34d399;
-  }
-  50% {
-    opacity: 1;
-    box-shadow: 0 0 12px #34d399, 0 0 24px #10b981;
-  }
-}
-
-.animate-device-3d {
-  animation: device-turntable 18s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-  transform-style: preserve-3d;
-}
-
-.animate-laser {
-  animation: laser-sweep 2.8s ease-in-out infinite;
-}
-
-.animate-oled-line {
-  animation: green-line-flicker 1.5s ease-in-out infinite;
-}
-
-.preserve-3d {
-  transform-style: preserve-3d;
-}
-
-.perspective-1200 {
-  perspective: 1200px;
-}
-
-.backface-hidden {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-/* Hardware Device Silhouette & Realistic Glass Glow */
-.device-frame-shadow {
-  box-shadow: 
-    0 0 0 1px rgba(255, 255, 255, 0.12),
-    0 25px 60px -15px rgba(0, 0, 0, 0.8),
-    0 0 45px -5px rgba(16, 185, 129, 0.25);
-}
-
-/* Receipt Perforated Edge */
-.receipt-perforated {
-  background-image: radial-gradient(circle at 10px -2px, transparent 8px, #121815 9px);
-  background-size: 20px 10px;
-  background-repeat: repeat-x;
-}
-
-/* Accessibility: prefers-reduced-motion */
-@media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* Leaflet Dark Custom Theme */
+/* Custom Leaflet Map Styling */
 .leaflet-popup-content-wrapper {
-  background: #0d1210 !important;
-  color: #f4f6f4 !important;
-  border: 1px solid rgba(16, 185, 129, 0.25) !important;
-  border-radius: 1rem !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75) !important;
+  background: #0f172a !important;
+  color: #f1f5f9 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 0.875rem !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
   padding: 0 !important;
   overflow: hidden;
 }
@@ -263,11 +55,11 @@
 }
 
 .leaflet-popup-tip {
-  background: #0d1210 !important;
-  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+  background: #0f172a !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
 .leaflet-container {
-  background: #080b0a !important;
+  background: #070a0f !important;
   font-family: inherit !important;
 }

@@ -43,7 +43,7 @@ export const ReWiseAssistant: React.FC<ReWiseAssistantProps> = ({
 
   const quickQuestions = [
     "Is it worth repairing or should I resell?",
-    "Can I reuse this phone as a webcam or smart display?",
+    "Can I reuse this phone as a webcam or smart home display?",
     "Why can't internal damage be confirmed remotely?",
     "How are the CO₂e carbon savings calculated?",
   ];
@@ -101,33 +101,33 @@ export const ReWiseAssistant: React.FC<ReWiseAssistantProps> = ({
   };
 
   return (
-    <div className="glass-eco rounded-3xl border border-white/5 bg-[#090d0b] overflow-hidden flex flex-col h-[520px] shadow-2xl">
+    <div className="glass-panel rounded-3xl border border-slate-800 bg-slate-900/70 overflow-hidden flex flex-col h-[520px]">
       {/* Header */}
-      <div className="p-4 sm:p-5 border-b border-white/5 bg-black/40 flex items-center justify-between">
+      <div className="p-4 sm:p-5 border-b border-slate-800/80 bg-slate-950/60 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
             <Bot className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-sm font-bold text-[#f4f6f4]">ReWise Contextual AI Assistant</h3>
+              <h3 className="text-sm font-bold text-white">ReWise Circular Assistant</h3>
               <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono text-[10px]">
-                Grounded
+                Active Context
               </span>
             </div>
-            <p className="text-[11px] text-[#93a299] font-mono">
-              Empirical repairability, trade-in schedules & CPCB compliance
+            <p className="text-[11px] text-slate-400">
+              Grounded in empirical repairability and circular economy data
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-1.5 text-[11px] text-[#93a299] font-mono">
+        <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
           <ShieldAlert className="w-3.5 h-3.5 text-emerald-400" />
-          <span className="hidden sm:inline">Zero pricing hallucinations</span>
+          <span className="hidden sm:inline">No fabricated specs</span>
         </div>
       </div>
 
       {/* Messages Scroll Area */}
-      <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 text-xs font-mono">
+      <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 text-xs">
         {messages.map((msg, idx) => (
           <div
             key={idx}
@@ -140,30 +140,30 @@ export const ReWiseAssistant: React.FC<ReWiseAssistantProps> = ({
             )}
 
             <div
-              className={`max-w-[85%] rounded-2xl p-4 space-y-2 ${
+              className={`max-w-[85%] rounded-2xl p-3.5 space-y-2 ${
                 msg.sender === "user"
-                  ? "bg-emerald-500 text-slate-950 font-sans font-medium ml-auto"
-                  : "bg-black/60 border border-white/5 text-[#f4f6f4] font-sans"
+                  ? "bg-emerald-600 text-slate-950 font-medium ml-auto"
+                  : "bg-slate-950 border border-slate-800 text-slate-200"
               }`}
             >
               <p className="leading-relaxed whitespace-pre-wrap">{msg.text}</p>
 
               {msg.suggestedAction && (
-                <div className="pt-2 border-t border-white/10 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-400 font-mono">
+                <div className="pt-2 border-t border-slate-800 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-400">
                   <ArrowRight className="w-3 h-3" />
                   <span>Suggested Next Step: {msg.suggestedAction}</span>
                 </div>
               )}
 
               {msg.sourceProvenance && (
-                <div className="text-[10px] text-[#93a299] font-mono pt-1">
+                <div className="text-[10px] text-slate-400 font-mono pt-1">
                   Source: {msg.sourceProvenance}
                 </div>
               )}
 
               <div
-                className={`text-[9px] font-mono ${
-                  msg.sender === "user" ? "text-slate-950/70" : "text-[#93a299]"
+                className={`text-[9px] ${
+                  msg.sender === "user" ? "text-slate-900/70" : "text-slate-500"
                 } text-right`}
               >
                 {msg.timestamp}
@@ -171,7 +171,7 @@ export const ReWiseAssistant: React.FC<ReWiseAssistantProps> = ({
             </div>
 
             {msg.sender === "user" && (
-              <div className="w-7 h-7 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-[#f4f6f4] shrink-0 mt-0.5">
+              <div className="w-7 h-7 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 shrink-0 mt-0.5">
                 <User className="w-3.5 h-3.5" />
               </div>
             )}
@@ -179,11 +179,11 @@ export const ReWiseAssistant: React.FC<ReWiseAssistantProps> = ({
         ))}
 
         {loading && (
-          <div className="flex gap-3 justify-start items-center text-[#93a299]">
+          <div className="flex gap-3 justify-start items-center text-slate-400">
             <div className="w-7 h-7 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
               <Bot className="w-3.5 h-3.5 animate-spin" />
             </div>
-            <div className="p-3 rounded-2xl bg-black/60 border border-white/5 text-xs text-[#93a299] font-mono flex items-center gap-2">
+            <div className="p-3 rounded-2xl bg-slate-950 border border-slate-800 text-xs text-slate-400 flex items-center gap-2">
               <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
               <span>Analyzing grounded repair & circular evidence...</span>
             </div>
@@ -194,13 +194,13 @@ export const ReWiseAssistant: React.FC<ReWiseAssistantProps> = ({
       </div>
 
       {/* Suggested Quick Inquiries */}
-      <div className="px-4 py-2 bg-black/40 border-t border-white/5 overflow-x-auto flex gap-2">
+      <div className="px-4 py-2 bg-slate-950/40 border-t border-slate-800/60 overflow-x-auto flex gap-2 no-scrollbar">
         {quickQuestions.map((q, idx) => (
           <button
             key={idx}
             onClick={() => handleSend(q)}
             disabled={loading}
-            className="px-2.5 py-1 rounded-xl bg-black/60 hover:bg-white/5 border border-white/10 text-[11px] font-mono text-[#93a299] hover:text-emerald-300 transition-colors whitespace-nowrap flex items-center gap-1.5 shrink-0"
+            className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-[11px] text-slate-300 hover:text-emerald-300 transition-colors whitespace-nowrap flex items-center gap-1.5 shrink-0"
           >
             <HelpCircle className="w-3 h-3 text-emerald-400" />
             <span>{q}</span>
@@ -209,19 +209,19 @@ export const ReWiseAssistant: React.FC<ReWiseAssistantProps> = ({
       </div>
 
       {/* Input Bar */}
-      <div className="p-3.5 bg-black/80 border-t border-white/5 flex items-center gap-2">
+      <div className="p-3 bg-slate-950/80 border-t border-slate-800 flex items-center gap-2">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
           placeholder="Ask a question about your device diagnosis or circular options..."
-          className="flex-1 bg-black/60 border border-white/10 rounded-2xl px-4 py-3 text-xs text-[#f4f6f4] placeholder-[#93a299] focus:outline-none focus:border-emerald-500/60 font-mono"
+          className="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500/60"
         />
         <button
           onClick={() => handleSend()}
           disabled={!input.trim() || loading}
-          className="p-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-slate-950 transition-colors shadow-md shadow-emerald-500/20"
+          className="p-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-slate-950 transition-colors shadow-md shadow-emerald-500/20"
         >
           <Send className="w-4 h-4" />
         </button>

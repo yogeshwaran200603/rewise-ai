@@ -7,8 +7,6 @@ import { Diagnose } from "./pages/Diagnose";
 import { DiagnosisResult } from "./pages/DiagnosisResult";
 import { ServiceCenters } from "./pages/ServiceCenters";
 import { RecyclingCenters } from "./pages/RecyclingCenters";
-import { CircularMarketplace } from "./pages/CircularMarketplace";
-import { DevicePassportPage } from "./pages/DevicePassportPage";
 import { Rewards } from "./pages/Rewards";
 import { Dashboard } from "./pages/Dashboard";
 import { AdminAnalyticsPage } from "./pages/AdminAnalytics";
@@ -32,7 +30,7 @@ export function App() {
 
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[#080b0a] text-[#f4f6f4] flex flex-col selection:bg-emerald-500 selection:text-slate-950 font-sans">
+      <div className="min-h-screen bg-[#070a0f] text-slate-100 flex flex-col selection:bg-emerald-500 selection:text-slate-950">
         <Navbar userPoints={userPoints} />
         <main className="flex-1">
           <Routes>
@@ -41,8 +39,6 @@ export function App() {
             <Route path="/diagnosis-result" element={<DiagnosisResult />} />
             <Route path="/service-centers" element={<ServiceCenters />} />
             <Route path="/recycling-centers" element={<RecyclingCenters />} />
-            <Route path="/marketplace" element={<CircularMarketplace />} />
-            <Route path="/passport" element={<DevicePassportPage />} />
             <Route path="/rewards" element={<Rewards />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/admin" element={<AdminAnalyticsPage />} />
